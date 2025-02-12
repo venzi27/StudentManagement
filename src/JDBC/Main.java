@@ -11,8 +11,10 @@ public class Main {
     		System.out.println(" Connect Success");
     		adm.run();
     	}
+    	
+    	else {
 			System.out.println("Failed");
-		
+    }
     	
   
     }
