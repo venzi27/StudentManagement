@@ -1,0 +1,6 @@
+@echo off
+echo Compiling Java files...
+javac -cp ".;lib/mysql-connector-j-9.2.0.jar" -d bin src\JDBC\Main.java
+
+echo Running Java program...
+java -cp ".;lib/mysql-connector-j-9.2.0.jar;bin" JDBC.Main
