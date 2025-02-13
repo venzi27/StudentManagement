@@ -14,7 +14,9 @@ public class Main {
     	
     	else {
 			System.out.println("Failed");
-    }
+       }
+    	
+		System.out.println("Naha");
     	
   
     }
