@@ -1,18 +1,19 @@
 package JDBC;
 
 import java.sql.*;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class AdminInterface {
+public class AdminInterface extends ConnectionSQL{
 
-    private String url = "jdbc:mysql://localhost:3306/studentmanagement";
-    private String user = "root";
-    private String pass = "databaseven";
+
+	//VARIABLE
     private Scanner scan = new Scanner(System.in);
     private Students stud = new Students();
+    ConnectionSQL sql = new ConnectionSQL();
     private int choices = 0;
 
+    
+    //RUNNABLE AI
      public void run() {
     	while (choices != 8) {
     	    try {
@@ -75,6 +76,7 @@ public class AdminInterface {
     	}
     }
 
+     //SEARCH GRADES AND VIEW GRADES OF STUDENTS
      private void viewgrades() {
 		try {
 			 PreparedStatement ps = connection().prepareStatement("SELECT Student_name,students.Student_id,Student_section,\r\n"
@@ -147,11 +149,14 @@ public class AdminInterface {
 			 }
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(" Error: " + e.getMessage());
+		} catch (NumberFormatException e) {
+			System.out.println(" Error: "+e.getMessage());
 		}
     		   
      }
-
+     
+   //DELETE STUDENTS
 	private void deleteStudents() {
     	
     	try {
@@ -184,7 +189,7 @@ public class AdminInterface {
     	   
     	    
     	    if (exe > 0) {
-    	    	System.out.println(" Successfully Deleted: "+idInt);
+    	    	System.out.println(" Successfully Deleted: "+idInt+" - "+gr);
     	    }else {
 				System.out.println(" Cannot Delete: "+idInt);
 			}
@@ -196,7 +201,8 @@ public class AdminInterface {
 			System.out.println(" Error: "+ e.getMessage());
 		}
 	}
-
+	
+    //UPDATE GRADES OF STUDENTS
 	 private void updateGrades() {
 		
 		try { 
@@ -254,11 +260,13 @@ public class AdminInterface {
 		  }
 		}	
 		}catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(" Error: "+e.getMessage());
+		}catch (NumberFormatException e) {
+			System.out.println(" Error: "+e.getMessage());
 		}
 	}
-
-	 private void searchStudent() {
+     //SEARCH STUDENTS
+	  private void searchStudent() {
 		 
 		 try {
 		String search = "SELECT * FROM students WHERE student_id = ?";
@@ -297,9 +305,12 @@ public class AdminInterface {
 		
 		 }catch (SQLException e) {
 			
+		 }catch (NumberFormatException e) {
+			System.out.println(" Error: "+e.getMessage());
 		}
 	}
-
+    
+	//ADD STUDENTS
 	 private void addStudent() {
         try {
             System.out.print(" Enter Student Name: ");
@@ -353,6 +364,7 @@ public class AdminInterface {
         }
     }
 
+	 //ADD GRADE IN THE STUDENT
      private void addGrades() {
         try {
             System.out.print(" Enter Student ID: ");
@@ -400,6 +412,7 @@ public class AdminInterface {
         }
     }
 
+     //VIEW ALL STUDENT
      private void viewStudents() {
         try (Statement stmnt = connection().createStatement();
              ResultSet rs = stmnt.executeQuery("SELECT * FROM students ORDER BY student_name")) {
@@ -425,16 +438,6 @@ public class AdminInterface {
         }
     }
 
-     public Connection connection() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(url, user, pass);
-        } catch (Exception e) {
-            System.out.println("Database Error: " + e.getMessage());
-            return null;
-        }
-    }
-
      private void insertStudent(String name, int age, String course, int id) throws SQLException {
         String insert = "INSERT INTO students VALUES (?, ?, ?, ?)";
         try (Connection conn = connection();
@@ -448,6 +451,7 @@ public class AdminInterface {
         }
     }
 
+     //check if id is exist
      private boolean idExists(int id) throws SQLException {
         String query = "SELECT COUNT(*) FROM students WHERE student_id = ?";
         try (Connection conn = connection();
@@ -458,6 +462,7 @@ public class AdminInterface {
         }
     }
 
+     //Inserting a Grade
      private void insertGrades(int id, int[] grades) throws SQLException {
         String query = "INSERT INTO GRADES VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try  (Connection conn = connection();

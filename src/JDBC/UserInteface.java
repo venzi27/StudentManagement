@@ -1,10 +1,7 @@
 package JDBC;
 
-public class UserInteface {
+public class UserInteface extends ConnectionSQL{
 	
 	
-
-	private void StudenUI() {
-		
-	}
+	
 }
