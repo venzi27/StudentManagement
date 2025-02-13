@@ -1,6 +1,7 @@
 package JDBC;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,19 +19,25 @@ public class ConnectionSQL {
     }
 
     private void loadConfig() {
-        Properties properties = new Properties();
-        
-        // TEMPORARY: Try absolute path (replace with your actual path)
-        String path = "src/resources/config.properties"; 
-        try (FileInputStream fis = new FileInputStream(path)) {
-            properties.load(fis);
-            this.url = properties.getProperty("db.url");
-            this.user = properties.getProperty("db.user");
-            this.pass = properties.getProperty("db.password");
-            System.out.println("✅ Config loaded successfully!");
-        } catch (IOException e) {
-            System.out.println("❌ ERROR: " + e.getMessage());
-        }
+       Properties properties = new Properties();
+       
+       String path = "src/resources/config.properties";
+       
+       try (FileInputStream inp = new FileInputStream(path)) {
+    	   properties.load(inp);
+    	   this.url = properties.getProperty("db.url");
+    	   this.user = properties.getProperty("db.user");
+    	   this.pass = properties.getProperty("db.password");
+    	   System.out.println();
+    	   
+       } catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	   } catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		
     }
 
     public Connection connection() {
