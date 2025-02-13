@@ -34,10 +34,10 @@ public class AdminInterface extends ConnectionSQL{
     	        System.out.print(" | SELECT: ");
     	        String input = scan.nextLine().trim();
                 // ✅ Check if input is a number from 1 to 7
-                if (input.matches("[1-7]")) {
+                if (input.matches("[1-8]")) {
                     choices = Integer.parseInt(input);
                 } else {
-                    System.out.println(" Invalid input! Please enter a number from 1-7.");
+                    System.out.println(" Invalid input! Please enter a number from 1-8.");
                     continue;  // 🔄 Restart loop
                 }
     	        // ✅ Process valid choices

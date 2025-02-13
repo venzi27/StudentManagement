@@ -1,7 +1,5 @@
 package JDBC;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -23,8 +21,7 @@ public class ConnectionSQL {
         Properties properties = new Properties();
         
         // TEMPORARY: Try absolute path (replace with your actual path)
-        String path = "C:/Users/ITOPS/eclipse-workspace/JDBC/src/resources/config.properties"; 
-
+        String path = "src/resources/config.properties"; 
         try (FileInputStream fis = new FileInputStream(path)) {
             properties.load(fis);
             this.url = properties.getProperty("db.url");
