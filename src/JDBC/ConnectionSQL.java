@@ -33,8 +33,6 @@ public class ConnectionSQL {
         }
     }
 
-
-
     public Connection connection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
        
-    	AdminInterface adm = new AdminInterface();
+    	 AdminInterface adm = new AdminInterface();
     	
     	   if (adm.connection() != null) {
     		  System.out.println(" Connect Success");
