@@ -7,17 +7,12 @@ public class Main {
        
     	AdminInterface adm = new AdminInterface();
     	
-    	if (adm.connection() != null) {
-    		System.out.println(" Connect Success");
-    		adm.run();
-    	}
-    	
-    	else {
-			System.out.println("Failed");
-       }
-    	
-		System.out.println("Naha");
-    	
+    	   if (adm.connection() != null) {
+    		  System.out.println(" Connect Success");
+    		  adm.run();
+    	     }else {
+			  System.out.println("Failed");
+          }	
   
     }
 }
