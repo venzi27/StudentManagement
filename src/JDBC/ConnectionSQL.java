@@ -28,8 +28,6 @@ public class ConnectionSQL {
     	   this.url = properties.getProperty("db.url");
     	   this.user = properties.getProperty("db.user");
     	   this.pass = properties.getProperty("db.password");
-    	   System.out.println();
-    	   
        } catch (FileNotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
