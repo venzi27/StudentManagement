@@ -29,10 +29,8 @@ public class ConnectionSQL {
     	   this.user = properties.getProperty("db.user");
     	   this.pass = properties.getProperty("db.password");
        } catch (FileNotFoundException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	   } catch (IOException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 		

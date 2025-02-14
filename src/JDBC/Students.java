@@ -7,18 +7,6 @@ public class Students {
     private String Course; 
     private int id;
     
-    public String getStudentName() {
-    	return student_name;
-    }
-    public int getAge() {
-		return Age;
-	}
-    public String getCourse(){
-    	return Course;
-    }
-    public int getId() {
-    	return id;
-    }
     public void setStudent(String name) {
     	this.student_name = name;
     }
@@ -30,6 +18,18 @@ public class Students {
     }
     public void setID(int  id) {
     	this.id = id;
+    }
+    public String getStudentName() {
+    	return student_name;
+    }
+    public int getAge() {
+		return Age;
+	}
+    public String getCourse(){
+    	return Course;
+    }
+    public int getId() {
+    	return id;
     }
 
 

@@ -9,7 +9,6 @@ public class AdminInterface extends ConnectionSQL{
 	//VARIABLE
     private Scanner scan = new Scanner(System.in);
     private Students stud = new Students();
-    ConnectionSQL sql = new ConnectionSQL();
     private int choices = 0;
 
     
