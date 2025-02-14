@@ -313,6 +313,7 @@ public class AdminInterface extends ConnectionSQL{
 	//ADD STUDENTS
 	 private void addStudent() {
         try {
+        	boolean validSection = false;
             System.out.print(" Enter Student Name: ");
             String name = scan.nextLine().trim();
             while (name.isEmpty() || name.matches(".*\\d.*")) {
@@ -334,12 +335,24 @@ public class AdminInterface extends ConnectionSQL{
             }
 
             System.out.print(" Enter Section: ");
-            String course = scan.nextLine().trim();
-            while (course.isEmpty()) {
+            String section = scan.nextLine().trim().toUpperCase();
+            while (section.isEmpty()) {
                 System.out.print(" Course cannot be empty. Enter Section: ");
-                course = scan.nextLine().trim();
+                section = scan.nextLine().trim();
             }
-
+            
+            String[] strands = {"ABM", "ICT", "STEM", "HUMMS", "HE"};
+            
+           for (int i=0; i<strands.length;i++) {
+        	   if (strands[i].contains(section)) {
+        		   validSection = true;
+        	   }
+           }
+            
+            if (!validSection) {
+            	System.out.println(" The available Strand are: HE, STEM, ICT, HUMMS, ABM");  	
+            }  
+            else { 
             System.out.print(" Enter Student ID: ");
             while (!scan.hasNextInt()) {
                 System.out.print(" Invalid ID. Enter a number: ");
@@ -355,13 +368,16 @@ public class AdminInterface extends ConnectionSQL{
 
             stud.setStudent(name);
             stud.setAge(age);
-            stud.setCourse(course);
+            stud.setCourse(section);
             stud.setID(id);
             insertStudent(stud.getStudentName(), stud.getAge(), stud.getCourse(), stud.getId());
+            
+            }
 
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
+        
     }
 
 	 //ADD GRADE IN THE STUDENT
