@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -26,6 +27,7 @@ public class Main extends ConnectionSQL{
     
     public static void main(String[] args) throws InterruptedException, SQLException {
     	
+    	try {
     while (Running) {
         config();
     	System.out.println(" ------------------------- ");
@@ -35,25 +37,27 @@ public class Main extends ConnectionSQL{
     	System.out.println(" Enter following credentials. ");
     	System.out.println();
     	System.out.print(" Enter Name: ");
-        name = scan.nextLine();
+        name = scan.nextLine().toUpperCase();
     	
         while (name.isEmpty()) {
         	System.out.print(" Name is empty. Enter Name: ");
-        	name = scan.nextLine();
+        	name = scan.nextLine().toUpperCase();
         	continue;
         }
         
         //check if name exist
         while (!NameExist(name)) {
         	System.out.print(" Record Not Found. Enter a name again: ");
-        	name = scan.nextLine();
-        	continue;
+        	name = scan.nextLine().toUpperCase();
+        	
         }
+        
         
         stud.setStudent(name);
         System.out.print(" Enter ID: ");
         id = scan.nextInt();
         scan.nextLine();
+        
         
         //check if id exist
         if (!idexist(id)) {
@@ -75,6 +79,9 @@ public class Main extends ConnectionSQL{
         	
 		}
       }
+    	}catch (InputMismatchException e) {
+			System.out.println(" Error: "+e.getMessage());
+		}
     }
     
     private static boolean NameExist(String name) {
@@ -82,6 +89,10 @@ public class Main extends ConnectionSQL{
     	   PreparedStatement ps = con().prepareStatement("SELECT * FROM Students WHERE Student_name = ?");
     	   ps.setString(1, name);
     	   ResultSet rs = ps.executeQuery();
+    	   
+    	   if (prop.getProperty("admin.user").equals(name)) {
+    		   return prop.contains(name);
+    	   }
     
            return rs.next() && rs.getString(1).contains(name);
     	
@@ -95,9 +106,13 @@ public class Main extends ConnectionSQL{
     private static boolean idexist(int id)  {
     	
     	try {		
-    	  PreparedStatement ps = con().prepareStatement("SELECT * FROM Students WHERE Student_id = ?");
+    	  PreparedStatement ps = con().prepareStatement("SELECT * FROM Students LEFT JOIN grades ON Students.student_id = grades.student_id WHERE students.Student_id = ?");
     	  ps.setInt(1, id);
     	  ResultSet rs = ps.executeQuery();
+    	  
+    	  if (prop.getProperty("admin.id").equals(String.valueOf(id))) {
+    		  return prop.contains(String.valueOf(id));
+    	  }
     	
     	  return rs.next() && rs.getString(1).contains(stud.getStudentName());
     	

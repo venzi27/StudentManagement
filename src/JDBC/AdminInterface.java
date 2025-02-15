@@ -314,10 +314,10 @@ public class AdminInterface extends ConnectionSQL{
         try {
         	boolean validSection = false;
             System.out.print(" Enter Student Name: ");
-            String name = scan.nextLine().trim();
+            String name = scan.nextLine().toUpperCase();
             while (name.isEmpty() || name.matches(".*\\d.*")) {
                 System.out.print(" Invalid name. Enter a valid name: ");
-                name = scan.nextLine().trim();
+                name = scan.nextLine().toUpperCase();
             }
 
             System.out.print(" Enter Age: ");
